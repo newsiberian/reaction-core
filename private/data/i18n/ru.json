@@ -131,7 +131,7 @@
                     "submitted": "submitted",
                     "registerGuest": "Hello! Add an email and receive order updates.",
                     "trackYourDelivery": "Order updates will be sent to",
-                    "noOrdersFound": "No orders found.",
+                    "noOrdersFound": "Заказов не найдено.",
                     "adminMessage": "You are viewing orders as an administrator"
                 },
                 "checkoutLogin": {
@@ -158,17 +158,17 @@
                 },
                 "shop": {
                     "addressBook": {
-                        "country": "Country",
-                        "fullName": "Full name",
-                        "address1": "Address 1",
-                        "address2": "Address 2",
-                        "postal": "Postal",
-                        "city": "City",
-                        "region": "Region",
-                        "phone": "Phone",
-                        "isShippingDefault": "Make this your default shipping address?",
-                        "isBillingDefault": "Make this your default billing address?",
-                        "isCommercial": "This is a commercial address."
+                        "country": "Страна",
+                        "fullName": "Ф.И.О.",
+                        "address1": "Адрес 1",
+                        "address2": "Адрес 2",
+                        "postal": "Почтовый индекс",
+                        "city": "Город",
+                        "region": "Область",
+                        "phone": "Телефон",
+                        "isShippingDefault": "Сделать этот адрес адресом доставки по умолчанию?",
+                        "isBillingDefault": "Сделать этот адрес платёжным адресом по умолчанию?",
+                        "isCommercial": "Это юридический адрес."
                     }
                 },
                 "address": {
