@@ -33,11 +33,11 @@ Package.onUse(function (api) {
   api.use("random");
   api.use("ejson");
   api.use("check");
-  api.use("less");
+  //api.use("less");
   api.use("http");
   api.use("reactive-var");
   api.use("email");
-  api.use("browser-policy");
+  //api.use("browser-policy");
   api.use("service-configuration");
   api.use("amplify@1.0.0");
 
@@ -54,7 +54,7 @@ Package.onUse(function (api) {
   api.use("aldeed:collection2@2.5.0");
   api.use("aldeed:simple-schema@1.3.3");
   api.use("aldeed:template-extension@3.4.3", "client");
-  api.use("iron:router@1.0.12");
+  //api.use("iron:router@1.0.12");
   api.use("ongoworks:bunyan-logger@2.5.0");
   api.use("ongoworks:security@1.3.0");
 
@@ -76,12 +76,12 @@ Package.onUse(function (api) {
   api.use("meteorhacks:ssr@2.1.2");
 
   // imply exports package vars
-  api.imply("less");
+  //api.imply("less");
   api.imply("amplify");
   api.imply("accounts-base");
   api.imply("ecmascript");
   api.imply("es5-shim");
-  api.imply("browser-policy");
+  //api.imply("browser-policy");
   api.imply("service-configuration");
   api.imply("ongoworks:security");
   api.imply("dburles:factory");
@@ -90,7 +90,7 @@ Package.onUse(function (api) {
   api.imply("aldeed:simple-schema");
   api.imply("aldeed:autoform");
   api.imply("aldeed:template-extension");
-  api.imply("iron:router");
+  //api.imply("iron:router");
   api.imply("cfs:graphicsmagick");
   api.imply("cfs:filesystem");
   api.imply("cfs:gridfs");

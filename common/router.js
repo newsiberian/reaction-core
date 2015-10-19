@@ -4,7 +4,7 @@
  * uses iron:router package.
  * Extend/override in reaction/client/routing.coffee
  */
-Router.configure({
+/*Router.configure({
   notFoundTemplate: "notFound",
   loadingTemplate: "loading",
 
@@ -43,10 +43,10 @@ Router.waitOn(function () {
   return this.subscribe("Packages");
 });
 
-/*
+/!*
  * ShopController Controller
  * main controller for the shop, most views except admin
- */
+ *!/
 let ShopController = RouteController.extend({
   onAfterAction: function () {
     return ReactionCore.MetaData.refresh(this.route, this.params);
@@ -66,10 +66,10 @@ let ShopController = RouteController.extend({
 
 this.ShopController = ShopController;
 
-/*
+/!*
  * ShopAccountsController Controller
  * restricts access of accounts views
- */
+ *!/
 
 let ShopAccountsController = RouteController.extend({
   onBeforeAction: function () {
@@ -100,10 +100,10 @@ let ShopAccountsController = RouteController.extend({
 
 this.ShopAccountsController = ShopAccountsController;
 
-/*
+/!*
  * ShopAdminController Controller
  * restricts access of admin views
- */
+ *!/
 let ShopAdminController = this.ShopController.extend({
   onBeforeAction: function () {
     if (!ReactionCore.hasPermission(this.route.getName())) {
@@ -122,9 +122,9 @@ let ShopAdminController = this.ShopController.extend({
 
 this.ShopAdminController = ShopAdminController;
 
-/*
+/!*
  * Print Controller
- */
+ *!/
 
 let PrintController = RouteController.extend({
   onBeforeAction: function () {
@@ -138,9 +138,9 @@ let PrintController = RouteController.extend({
 
 this.PrintController = PrintController;
 
-/*
+/!*
  * General Route Declarations
- */
+ *!/
 
 Router.map(function () {
   this.route("unauthorized", {
@@ -305,4 +305,4 @@ Router.map(function () {
       }
     }
   });
-});
+});*/
