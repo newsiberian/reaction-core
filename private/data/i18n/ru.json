@@ -56,7 +56,7 @@
                     "selectOption": "Выберите вариант прежде чем добавить в корзину",
                     "addedToCart": "добавлено",
                     "showBarcodes": "Показать Штрих-коды",
-                    "soldOut": "Нет в наличие",
+                    "soldOut": "Распродано!",
                     "backOrder": "Backorder",
                     "limitedSupply": "Limited Supply",
                     "publishProductVisible": "is now visible",
