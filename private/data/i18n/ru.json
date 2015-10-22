@@ -143,11 +143,11 @@
                     "guestMessage": "You can checkout without creating an account. You'll have a chance to create an account later."
                 },
                 "addressBookGrid": {
-                    "addAddress": "Add Address",
-                    "chooseAddress": "Выбрать адрес доставки и адрес плательщика",
-                    "createDefault": "Создать адрес по умолчанию",
+                    "addAddress": "Добавить Адрес",
+                    "chooseAddress": "Выбор адреса доставки и платёжного адреса",
+                    "createDefault": "Добавить адрес по умолчанию",
                     "selectShippingAddress": "Выбрать адрес доставки",
-                    "selectBillingAddress": "Выбрать адрес плательщика"
+                    "selectBillingAddress": "Выбрать платёжный адрес"
                 },
                 "addressBookAdd": {
                     "addAddress": "Добавить адрес",
@@ -192,18 +192,18 @@
                     "complete": "Готово"
                 },
                 "checkoutPayment": {
-                    "addPaymentToCompleteOrder": "Add payment to complete order",
-                    "processingError": "There was a problem with your payment.",
+                    "addPaymentToCompleteOrder": "Добавить способ оплаты для завершения заказа",
+                    "processingError": "С вашей оплатой возникли сложности.",
                     "completeYourOrder": "Complete your order"
                 },
                 "checkoutReview": {
-                    "review": "Review"
+                    "review": "Итого"
                 },
                 "checkoutShipping": {
-                    "selectShippingOption": "Select shipping option",
-                    "noShippingMethods": "No shipping methods are configured.",
-                    "configureNow": "Configure now.",
-                    "shipping": "Shipping"
+                    "selectShippingOption": "Выбор способа доставки",
+                    "noShippingMethods": "Нет настроенных способов доставки.",
+                    "configureNow": "Настроить сейчас.",
+                    "shipping": "Доставка"
                 },
                 "shopEditForm": {
                     "name": "Name",
