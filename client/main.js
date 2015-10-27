@@ -1,7 +1,7 @@
-/**
+/*/!**
  * ReactionCore
  * Global reaction shop permissions methods and shop initialization
- */
+ *!/
 _.extend(ReactionCore, {
   shopId: null,
   init: function () {
@@ -23,13 +23,13 @@ _.extend(ReactionCore, {
       }
     });
   },
-  /**
+  /!**
    * hasPermission - client permissions checks
    * @param {String | Array} checkPermissions -String or Array of permissions if empty, defaults to "admin, owner"
    * @param {String} checkUserId - userId, defaults to Meteor.userId()
    * @param {String} group - default to shopId
    * @return {Boolean} Boolean - true if has permission
-   */
+   *!/
   hasPermission: function (checkPermissions, checkUserId, group) {
     check(checkPermissions, Match.OneOf(String, Array));
     // use current user if userId if not provided
@@ -109,12 +109,12 @@ _.extend(ReactionCore, {
     return Roles.getGroupsForUser(this.userId, "admin");
   },
 
-  /**
+  /!**
    * @description showActionView
    *
    * @param {String} viewData {label, template, data}
    * @returns {String} Session "admin/showActionView"
-   */
+   *!/
   showActionView: function (viewData) {
     Session.set("admin/showActionView", true);
     ReactionCore.setActionView(viewData);
@@ -184,11 +184,11 @@ _.extend(ReactionCore, {
 
 });
 
-/*
+/!*
  * configure bunyan logging module for reaction client
  * See: https://github.com/trentm/node-bunyan#levels
  * client we'll cofigure WARN as default
- */
+ *!/
 let isDebug = "WARN";
 
 if (Meteor.settings !== undefined) {
@@ -215,10 +215,10 @@ ReactionCore.Log = bunyan.createLogger({
 
 ReactionCore.Log.level(isDebug);
 
-/*
+/!*
  * registerLoginHandler
  * method to create anonymous users
- */
+ *!/
 
 Accounts.loginWithAnonymous = function (anonymous, callback) {
   Accounts.callLoginMethod({
@@ -229,10 +229,10 @@ Accounts.loginWithAnonymous = function (anonymous, callback) {
   });
 };
 
-/**
+/!**
  *  Startup Reaction
  *  Init Reaction client
- */
+ *!/
 
 Meteor.startup(function () {
   // warn on insecure exporting of PackageRegistry settings
@@ -248,4 +248,4 @@ Meteor.startup(function () {
       Accounts.loginWithAnonymous();
     }
   });
-});
+});*/
