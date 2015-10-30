@@ -8,6 +8,7 @@
                     "select": "Выбрать язык"
                 },
                 "app": {
+                    "save": "Сохранить",
                     "saveAndContinue": "Сохранить и продолжить",
                     "cancel": "Отменить",
                     "submit": "Подтвердить",
@@ -23,7 +24,8 @@
                     "yearOptions": "Выберите год",
                     "timezoneOptions": "Выберите временную зону",
                     "shopSettings": "Установки Магазина",
-                    "dashboard": "Панель управления"
+                    "dashboard": "Панель управления",
+                    "print": "Print"
                 },
                 "header": {
                     "tagsAdd": "Добавить метку",
@@ -122,6 +124,29 @@
                 },
                 "cartDrawerItems": {
                     "left": "слева"
+                },
+                "order": {
+                    "created": "Created",
+                    "reference": "Reference",
+                    "invoice": "Invoice",
+                    "ordersNotFound": "No Orders Found",
+                    "approveInvoice": "Approve",
+                    "makeAdjustments": "Make Adjustments",
+                    "capturePayment": "Capture Payment",
+                    "paymentCaptured": "Payment Captured"
+                },
+                "orderShipping": {
+                    "shipTo": "Ship To",
+                    "shipped": "Shipped",
+                    "notShipped": "Not Yet Shipped",
+                    "noTracking": "No Tracking",
+                    "tracking": "Tracking",
+                    "addtracking": "Add Tracking",
+                    "shipmentEmpty": "This shipment has no items",
+                    "shipmentPacked": "All Items Packed",
+                    "shipped": "Shipped",
+                    "shippingNotifyCustomer": "Notify the customer that their items will be shipping soon.",
+                    "resendShipmentNotification": "Resend Shipment Notification"
                 },
                 "cartCompleted": {
                     "thankYou": "Благодарим!",
