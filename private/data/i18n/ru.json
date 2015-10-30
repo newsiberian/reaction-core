@@ -32,13 +32,14 @@
                     "search": "Искать товары..."
                 },
                 "productDetail": {
-                    "productManagement": "Управление товарами",
+                    "productManagement": "Управление товаром",
                     "makeInvisible": "Сделать невидимым",
                     "isNotVisible": "Этот товар невидим для покупателей.",
                     "makeItVisible": "Вы можете сделать его видимым",
                     "whenYouAreDone": "когда закончите редактирование.",
                     "tags": "Метки",
                     "tagsAdd": "Новая метка",
+                    "tagsEdit": "Редактировать метку",
                     "addInventory": "Добавить Опись",
                     "barcode": "Штрих-код",
                     "confirmDeleteBarcode": "Вы уверены, что хотите удалить штрих-код",
@@ -70,8 +71,8 @@
                     "dropFile": "Перетащите фото для загрузки"
                 },
                 "productDetailEdit": {
-                    "title": "Название",
-                    "pageTitle": "Другое название",
+                    "title": "Название товара",
+                    "pageTitle": "Название страницы товара",
                     "vendor": "Производитель",
                     "description": "Добавьте описание товара",
                     "facebookMsg": "Facebook Message",

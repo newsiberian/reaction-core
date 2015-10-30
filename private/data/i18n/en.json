@@ -39,6 +39,7 @@
                     "whenYouAreDone": "when you're done editing.",
                     "tags": "Tags",
                     "tagsAdd": "Add tag",
+                    "tagsEdit": "Edit tags",
                     "addInventory": "Add Inventory",
                     "barcode": "Barcode",
                     "confirmDeleteBarcode": "Are you sure you want to delete barcode",
