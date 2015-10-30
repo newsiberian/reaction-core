@@ -243,12 +243,12 @@ Meteor.methods({
    * cart/removeFromCart
    * @summary removes a variant from the cart
    * @param {String} cartId - user cartId
-   * @param {String} variantData - variant object
+   * @param {String} cartItem - cart item object
    * @returns {String} returns Mongo update result
    */
-  "cart/removeFromCart": function (cartId, variantData) {
+  "cart/removeFromCart": function (cartId, cartItem) {
     check(cartId, String);
-    check(variantData, Object);
+    check(cartItem, Object);
     this.unblock();
 
     return Cart.update({
@@ -256,7 +256,7 @@ Meteor.methods({
     }, {
       $pull: {
         items: {
-          variants: variantData
+          variants: cartItem.variants
         }
       }
     });
@@ -304,12 +304,37 @@ Meteor.methods({
     delete order.cartTotal;
     delete order._id;
 
+    if (!order.shipping) {
+      order.shipping = [];
+    }
+
+    if (order.shipping) {
+      if (order.shipping.length > 0) {
+        order.shipping[0].paymentId = order.billing[0]._id;
+
+        if (_.isArray(order.shipping[0].items) === false) {
+          order.shipping[0].items = [];
+        }
+      }
+    }
+
     // init item level workflow
     _.each(order.items, function (item, index) {
       order.items[index].workflow = {
         status: "orderCreated",
         workflow: ["inventoryAdjusted"]
       };
+
+
+      if (order.shipping[0].items) {
+        order.shipping[0].items.push({
+          _id: item._id,
+          productId: item.productId,
+          shopId: item.shopId,
+          variantId: item.variants._id,
+          quantity: item.quantity
+        });
+      }
     });
 
     if (!order.items) {

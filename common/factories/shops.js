@@ -1,5 +1,9 @@
+/**
+ * Shop Factory
+ * @summary define shop Factory
+ */
 Factory.define("shop", ReactionCore.Collections.Shops, {
-  name: faker.company.companyName(),
+  name: faker.internet.domainName(),
   description: faker.company.catchPhrase(),
   keywords: faker.company.bsAdjective(),
   addressBook: [faker.reaction.address() ],
@@ -10,7 +14,7 @@ Factory.define("shop", ReactionCore.Collections.Shops, {
       verified: faker.random.boolean()
     }
   ],
-  currency: "USD",// faker.finance.currencyCode()
+  currency: "USD", // could use faker.finance.currencyCode()
   currencies: {
     USD: {
       format: "%s%v",
@@ -40,6 +44,30 @@ Factory.define("shop", ReactionCore.Collections.Shops, {
       }
     }
   },
+  layout: [{
+    layout: "coreLayout",
+    workflow: "coreLayout",
+    theme: "default",
+    enabled: true
+  }, {
+    layout: "coreLayout",
+    workflow: "coreCartWorkflow",
+    collection: "Cart",
+    theme: "default",
+    enabled: true
+  }, {
+    layout: "coreLayout",
+    workflow: "coreOrderWorkflow",
+    collection: "Orders",
+    theme: "default",
+    enabled: true
+  }, {
+    layout: "coreLayout",
+    workflow: "coreOrderShipmentWorkflow",
+    collection: "Orders",
+    theme: "default",
+    enabled: true
+  }],
   public: true,
   timezone: "US/Pacific",
   baseUOM: "OZ",

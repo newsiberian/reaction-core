@@ -2,19 +2,17 @@
 * Cart Factory
 * @summary define cart Factory
 */
-
 Factory.define("cart", ReactionCore.Collections.Cart, {
-  shopId: Factory.get("shop"),
-  userId: Factory.get("user"),
+  shopId: faker.reaction.shops.getShop()._id,
+  userId: faker.reaction.users.getUser()._id,
   sessionId: Random.id(),
   email: faker.internet.email(),
   items: [
     faker.reaction.cartItem(),
     faker.reaction.cartItem()
   ],
-  shipping: {},
-  billing: {},
-  totalPrice: _.random(1, 1000),
+  shipping: [],
+  billing: [],
   state: "new",
   createdAt: faker.date.past(),
   updatedAt: new Date()
