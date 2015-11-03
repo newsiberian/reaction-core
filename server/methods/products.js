@@ -592,13 +592,13 @@ Meteor.methods({
       if (productCount > 0) {
         throw new Meteor.Error(403, "Existing Tag, Update Denied");
       }
-      Products.update(productId, {
+      return Products.update(productId, {
         $push: {
           hashtags: existingTag._id
         }
       });
     } else if (tagId) {
-      Tags.update(tagId, {
+      return Tags.update(tagId, {
         $set: newTag
       });
     } else {
@@ -607,7 +607,7 @@ Meteor.methods({
       newTag.updatedAt = new Date();
       newTag.createdAt = new Date();
       newTag._id = Tags.insert(newTag);
-      Products.update(productId, {
+      return Products.update(productId, {
         $push: {
           hashtags: newTag._id
         }
