@@ -41,6 +41,7 @@
                     "tagsAdd": "Add tag",
                     "tagsEdit": "Edit tags",
                     "tagExists": "Tag already exists, or is empty.",
+                    "dropFiles": "Drop files to upload",
                     "addInventory": "Add Inventory",
                     "barcode": "Barcode",
                     "confirmDeleteBarcode": "Are you sure you want to delete barcode",
