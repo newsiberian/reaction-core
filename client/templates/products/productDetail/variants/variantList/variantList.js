@@ -4,17 +4,19 @@
 Template.variantList.helpers({
   variants: function () {
     let inventoryTotal = 0;
-    const variants = [];
-    const product = selectedProduct();
+    // const variants = [];
+    // const product = selectedProduct();
 
-    if (product) {
+    // if (product) {
       // top level variants
-      for (let variant of product.variants) {
-        if (!variant.parentId) {
-          variants.push(variant);
-        }
-      }
+    const variants = getVariants();
+      //for (let variant of product.variants) {
+      //  if (!variant.parentId) {
+      //    variants.push(variant);
+      //  }
+      //}
       // calculate inventory total for all variants
+    if (variants.length > 0) {
       for (let variant of variants) {
         if (!isNaN(variant.inventoryQuantity)) {
           inventoryTotal += variant.inventoryQuantity;
@@ -41,7 +43,7 @@ Template.variantList.helpers({
 
     if (product) {
       let current = selectedVariant();
-      if (typeof current === "object" ? current._id : void 0) {
+      if (typeof current === "object" && current._id) {
         if (current.parentId) {
           for (let variant of product.variants) {
             if (variant.parentId === current.parentId && variant.optionTitle &&

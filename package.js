@@ -131,7 +131,7 @@ Package.onUse(function (api) {
   api.addFiles("common/common.js");
 
   // Private fixture data
-  api.addAssets("private/data/Products.json", "server");
+  // api.addAssets("private/data/Products.json", "server");
   api.addAssets("private/data/Shops.json", "server");
   api.addAssets("private/data/Tags.json", "server");
 

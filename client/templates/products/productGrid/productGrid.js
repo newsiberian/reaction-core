@@ -116,7 +116,7 @@ Template.productGrid.helpers({
     }
 
     let tag = this.tag || this._id || "";
-    let selector = {};
+    let selector = { type: "simple" };
 
     if (tag) {
       hashtags = [];

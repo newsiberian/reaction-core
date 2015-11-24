@@ -13,13 +13,14 @@ Template.variant.helpers({
   },
   selectedVariant: function () {
     const current = selectedVariant();
-    if (this._id === (typeof current === "object" ? current._id : void 0) ||
-      this._id === (typeof current === "object" ? current.parentId : void 0)) {
-      return "variant-detail-selected";
-    }
+    //if (typeof this._id === "string" &&
+    //  (this._id === (typeof current === "object" && current._id) ||
+    //  this._id === (typeof current === "object" && current.parentId))) {
+    //  return "variant-detail-selected";
+    //}
   },
   displayPrice: function () {
-    return getVariantPriceRange(this._id);
+    // return getVariantPriceRange(this._id);
   },
   isSoldOut: function () {
     if (this.inventoryQuantity < 1) {

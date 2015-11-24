@@ -17,27 +17,32 @@
  * Assign to some local letiables to keep code
  * short and sweet
  */
-let Cart = ReactionCore.Collections.Cart;
+//let Cart = ReactionCore.Collections.Cart;
+//
+//let Discounts = ReactionCore.Collections.Discounts;
+//
+//let Media = ReactionCore.Collections.Media;
+//
+//let Orders = ReactionCore.Collections.Orders;
+//
+//let Packages = ReactionCore.Collections.Packages;
+//
+//let Products = ReactionCore.Collections.Products;
+//
+//let Shipping = ReactionCore.Collections.Shipping;
+//
+//let Shops = ReactionCore.Collections.Shops;
+//
+//let Tags = ReactionCore.Collections.Tags;
+//
+//let Taxes = ReactionCore.Collections.Taxes;
+//
+//let Translations = ReactionCore.Collections.Translations;
 
-let Discounts = ReactionCore.Collections.Discounts;
-
-let Media = ReactionCore.Collections.Media;
-
-let Orders = ReactionCore.Collections.Orders;
-
-let Packages = ReactionCore.Collections.Packages;
-
-let Products = ReactionCore.Collections.Products;
-
-let Shipping = ReactionCore.Collections.Shipping;
-
-let Shops = ReactionCore.Collections.Shops;
-
-let Tags = ReactionCore.Collections.Tags;
-
-let Taxes = ReactionCore.Collections.Taxes;
-
-let Translations = ReactionCore.Collections.Translations;
+const {
+  Cart, Discounts, Media, Orders, Packages, Shipping,
+  Shops, Tags, Taxes, Translations
+} = ReactionCore.Collections;
 
 /*
  * Define some additional rule chain methods
@@ -94,7 +99,7 @@ Security.defineMethod("ifSessionIdMatches", {
  * Permissive security for users with the "admin" role
  */
 
-Security.permit(["insert", "update", "remove"]).collections([Products, Tags,
+Security.permit(["insert", "update", "remove"]).collections([/*Products, */Tags,
   Translations, Discounts, Taxes, Shipping, Orders, Packages
 ]).ifHasRole({
   role: "admin",
@@ -125,10 +130,10 @@ Shops.permit(["update", "remove"]).ifHasRole({
  * remove products, but createProduct allows just for just a product editor
  */
 
-Products.permit(["insert", "update", "remove"]).ifHasRole({
-  role: ["createProduct"],
-  group: ReactionCore.getShopId()
-}).ifShopIdMatchesThisId().apply();
+//Products.permit(["insert", "update", "remove"]).ifHasRole({
+//  role: ["createProduct"],
+//  group: ReactionCore.getShopId()
+//}).ifShopIdMatchesThisId().apply();
 
 /*
  * Users with the "owner" role may remove orders for their shop

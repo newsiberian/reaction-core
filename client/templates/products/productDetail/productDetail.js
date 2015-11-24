@@ -19,10 +19,11 @@ Template.productDetail.helpers({
     return Template.productDetailTags;
   },
   actualPrice: function () {
-    let childVariants;
+    // let childVariants;
     let purchasable;
-    let current = selectedVariant();
-    let product = selectedProduct();
+    const childVariants = getAllVariants();
+    const current = selectedVariant();
+    /*let product = selectedProduct();
     if (product && current) {
       childVariants = (function () {
         let _results = [];
@@ -34,7 +35,8 @@ Template.productDetail.helpers({
         return _results;
       })();
       purchasable = childVariants.length > 0 ? false : true;
-    }
+    }*/
+    purchasable = childVariants.length <= 0;
     if (purchasable) {
       return current.price;
     }
