@@ -4,7 +4,7 @@
  * @param {Array} shops - array of shopId to retrieve product from.
  * @return {Object} return product cursor
  */
-Meteor.publish("Products", function (productScrollLimit, shops) {
+/*Meteor.publish("Products", function (productScrollLimit, shops) {
   check(productScrollLimit, Match.OneOf(null, undefined, Number));
   check(shops, Match.Optional(Array));
 
@@ -45,14 +45,14 @@ Meteor.publish("Products", function (productScrollLimit, shops) {
     });
   }
   this.ready();
-});
+});*/
 
 /**
  * product detail publication
  * @param {String} productId - productId
  * @return {Object} return product cursor
  */
-Meteor.publish("Product", function (productId) {
+/*Meteor.publish("Product", function (productId) {
   check(productId, String);
   let shop = ReactionCore.getCurrentShop(this);
   let Products = ReactionCore.Collections.Products;
@@ -75,7 +75,7 @@ Meteor.publish("Product", function (productId) {
     };
   }
   return Products.find(selector);
-});
+});*/
 
 /**
  * tags

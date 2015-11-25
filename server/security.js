@@ -94,7 +94,7 @@ Security.defineMethod("ifSessionIdMatches", {
  * Permissive security for users with the "admin" role
  */
 
-Security.permit(["insert", "update", "remove"]).collections([Products, Tags,
+Security.permit(["insert", "update", "remove"]).collections([/*Products,*/ Tags,
   Translations, Discounts, Taxes, Shipping, Orders, Packages
 ]).ifHasRole({
   role: "admin",
@@ -125,10 +125,10 @@ Shops.permit(["update", "remove"]).ifHasRole({
  * remove products, but createProduct allows just for just a product editor
  */
 
-Products.permit(["insert", "update", "remove"]).ifHasRole({
-  role: ["createProduct"],
-  group: ReactionCore.getShopId()
-}).ifShopIdMatchesThisId().apply();
+//Products.permit(["insert", "update", "remove"]).ifHasRole({
+//  role: ["createProduct"],
+//  group: ReactionCore.getShopId()
+//}).ifShopIdMatchesThisId().apply();
 
 /*
  * Users with the "owner" role may remove orders for their shop

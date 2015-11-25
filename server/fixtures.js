@@ -468,7 +468,7 @@ ReactionRegistry.loadFixtures = function () {
     if (!!ReactionCore.Collections.Shops.find().count()) {
       Meteor.clearInterval(wait);
       Fixtures.loadI18n(ReactionCore.Collections.Translations);
-      Fixtures.loadData(ReactionCore.Collections.Products);
+      // Fixtures.loadData(ReactionCore.Collections.Products);
       Fixtures.loadData(ReactionCore.Collections.Tags);
       Fixtures.loadCurrencyJobs(ReactionCore.Collections.Jobs);
       // create default admin user

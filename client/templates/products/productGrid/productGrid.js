@@ -116,7 +116,7 @@ Template.productGrid.helpers({
     }
 
     let tag = this.tag || this._id || "";
-    let selector = {};
+    let selector = { /*type: "simple"*/ };
 
     if (tag) {
       hashtags = [];
@@ -174,12 +174,13 @@ Template.productGridItems.helpers({
   media: function () {
     let defaultImage;
     let variantId;
-    let variants = [];
+    const variants = getVariants();
+    /*let variants = [];
     for (let variant of this.variants) {
       if (!variant.parentId) {
         variants.push(variant);
       }
-    }
+    }*/
     if (variants.length > 0) {
       variantId = variants[0]._id;
       defaultImage = ReactionCore.Collections.Media.findOne({
@@ -195,13 +196,14 @@ Template.productGridItems.helpers({
   additionalMedia: function () {
     let mediaArray;
     let variantId;
-    let variants = [];
+    const variants = getVariants();
+    /*let variants = [];
 
     for (let variant of this.variants) {
       if (!variant.parentId) {
         variants.push(variant);
       }
-    }
+    }*/
 
     if (variants.length > 0) {
       variantId = variants[0]._id;

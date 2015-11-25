@@ -90,21 +90,7 @@ this.setCurrentProduct = function (productId) {
  * @return {Object} currently selected variant object
  */
 this.selectedVariant = function () {
-  let id;
-  let product;
-  let variant;
-  id = selectedVariantId();
-  if (!id) {
-    return {};
-  }
-  product = selectedProduct();
-  if (!product) {
-    return {};
-  }
-  variant = _.findWhere(product.variants, {
-    _id: id
-  });
-  return variant;
+  return Products.findOne(selectedVariantId());
 };
 
 /**
@@ -138,12 +124,12 @@ this.selectedVariantId = function () {
     return id;
   }
 
-  let product = selectedProduct();
-  if (!product) {
-    return [];
-  }
+  //let product = selectedProduct();
+  //if (!product) {
+  //  return [];
+  //}
 
-  let variants = (function () {
+  let variants = getVariants();/*(function () {
     let results = [];
     for (let variant of product.variants) {
       if (!variant.parentId) {
@@ -151,7 +137,7 @@ this.selectedVariantId = function () {
       }
     }
     return results;
-  })();
+  })();*/
 
   if (!(variants.length > 0)) {
     return [];
@@ -372,4 +358,31 @@ this.getGuestLoginState = function () {
     return true;
   }
   return false;
+};
+
+/*this.getAllVariants = () => {
+  const product = selectedProduct();
+  const allVariants = [];
+
+  function findChildren(parent) {
+    if (parent) {
+      const children = Products.find({ _id: { $in: parent.variants } }).fetch();
+      children.map((child) => {
+        allVariants.push(child);
+        child.variants.length && findChildren(child);
+      });
+    }
+  }
+  findChildren(product);
+
+  return allVariants;
+};*/
+
+this.getVariants = () => {
+  const parent = selectedProduct();
+
+  if (parent) {
+    return Products.find({ ancestors: { $in: [parent._id] } }).fetch();
+  }
+  return [];
 };
