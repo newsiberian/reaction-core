@@ -12,9 +12,10 @@ Template.variant.helpers({
     return "progress-bar-success";
   },
   selectedVariant: function () {
+    const _id = this._id;
     const current = selectedVariant();
-    if (this._id === (typeof current === "object" ? current._id : void 0) ||
-      this._id === (typeof current === "object" ? current.parentId : void 0)) {
+    if (typeof current === "object" &&
+      (_id === current._id || ~current.ancestors.indexOf(this._id))) {
       return "variant-detail-selected";
     }
   },
@@ -72,6 +73,7 @@ Template.variant.onRendered(function () {
         update: function () {
           const product = selectedProduct();
           const newVariants = [];
+          // todo fix this
           const productVariants = product.variants;
           // fetch uiPositions
           let uiPositions = $(this).sortable("toArray", {
