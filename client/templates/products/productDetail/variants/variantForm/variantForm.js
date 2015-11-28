@@ -70,8 +70,9 @@ Template.variantForm.events({
     if (!productId) {
       return;
     }
-    Meteor.call("products/cloneVariant", productId, template.data._id,
-      this._id);
+    Meteor.call("products/createVariant", template.data._id);
+    //Meteor.call("products/cloneVariant", productId, template.data._id,
+    //  this._id);
   },
   "click .btn-remove-variant": function () {
     let title = this.title || "this variant";

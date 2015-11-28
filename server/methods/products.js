@@ -16,150 +16,121 @@ Meteor.methods({
    * Note: parentId and variantId can be the same if creating a child variant.
    * @param {String} productId - the productId we're whose variant we're cloning
    * @param {String} variantId - the variantId that we're cloning
-   * @param {String} parentId - optional variantId of a parent variant to create a childVariant
-   * @return {String} returns new clone variantId
+   * @todo in debug mode method runs twice sometimes
+   * @todo we don't need productId. Currently it used for mediaCopy only
+   * @todo rewrite @description
+   * @return {undefined}
    */
-  "products/cloneVariant": function (productId, variantId, parentId) {
+  "products/cloneVariant": function (productId, variantId) {
     check(productId, String);
     check(variantId, String);
-    check(parentId, Match.Optional(String));
-    let children;
-    let clone;
-    let product;
-    const processVariants = id => {
-      let results = [];
-      for (let variant of product.variants) {
-        if (typeof variant[id] === "string" && variant[id] === variantId) {
-          results.push(variant);
-        }
-      }
-      return results;
-    };
     // user needs createProduct permission to clone
     if (!ReactionCore.hasPermission("createProduct")) {
       throw new Meteor.Error(403, "Access Denied");
     }
     this.unblock();
 
-    product = Products.findOne(productId);
-    // create variant hierachy structure
-    const variant = processVariants("_id");
-
+    const variants = Products.find({
+      $or: [{ _id: variantId }, { ancestors: { $in: [variantId] }}],
+      type: "variant"
+    }).fetch();
     // exit if we're trying to clone a ghost
-    if (!(variant.length > 0)) {
-      return false;
+    if (variants.length === 0) {
+      return;
     }
-    // variant is an array, with only
-    // selected variant
-    clone = Object.assign({}, variant[0]);
-    // we use id with variant children
-    clone._id = Random.id();
+    const variantNewId = Random.id(); // for the parent variant
 
-    // if this is going to be a child
-    if (parentId) {
-      ReactionCore.Log.info(
-        "products/cloneVariant: create parent child clone from ",
-        parentId);
-      clone.parentId = variantId;
-      delete clone.inventoryQuantity;
-      Products.update({
-        _id: productId
-      }, {
-        $push: {
-          variants: clone
-        }
-      }, {
-        validate: false
-      });
-      return clone._id;
-    }
-    // delete original values for new clone
-    clone.cloneId = variant[0]._id;
-    delete clone.updatedAt;
-    delete clone.createdAt;
-    delete clone.inventoryQuantity;
-    delete clone.title;
-    ReactionCore.copyMedia(productId, variant[0]._id, clone._id);
-
-    // push the new variant to the product
-    Products.update({
-      _id: productId
-    }, {
-      $push: {
-        variants: clone
-      }
-    }, {
-      validate: false
-    });
-
-    // process children
-    children = processVariants("parentId");
-    // if we have children
-    if (children.length > 0) {
-      ReactionCore.Log.info(
-        "products/cloneVariant: create sub child clone from ", productId
-      );
-      for (let childClone of children) {
-        const variantOldId = childClone._id;
-        childClone.cloneId = variantOldId;
-        childClone._id = Random.id();
-        childClone.parentId = clone._id;
-        ReactionCore.copyMedia(productId, variantOldId, childClone._id);
-        Products.update({
-          _id: productId
-        }, {
-          $push: {
-            variants: childClone
-          }
-        }, {
-          validate: false
+    variants.map(variant => {
+      const oldId = variant._id;
+      let type = "child";
+      let clone = {};
+      if (variantId === variant._id) {
+        type = "parent";
+        Object.assign(clone, variant, {
+          _id: variantNewId,
+          title: ""
+        });
+      } else {
+        const parentIndex = variant.ancestors.indexOf(variantId);
+        const ancestorsClone = variant.ancestors.slice(0);
+        // if variantId exists in ancestors, we override it by new _id
+        !!~parentIndex && ancestorsClone.splice(parentIndex, 1, variantNewId);
+        Object.assign(clone, variant, {
+          _id: Random.id(),
+          ancestors: ancestorsClone,
+          optionTitle: "",
+          title: ""
         });
       }
-    }
-    return clone._id;
+      delete clone.updatedAt;
+      delete clone.createdAt;
+      delete clone.inventoryQuantity;
+      // TODO try to throw out the productId from `copyMedia`
+      ReactionCore.copyMedia(productId, oldId, clone._id);
+
+      Products.insert(clone, { validate: false }, (error, result) => {
+        if (result) {
+          if (type === "child") {
+            ReactionCore.Log.info(
+              `products/cloneVariant: created sub child clone: ${
+                clone._id} from ${variantId}`
+          );
+          } else {
+            ReactionCore.Log.info(
+              `products/cloneVariant: created clone: ${
+                clone._id} from ${variantId}`
+            );
+          }
+        }
+      });
+    });
+
   },
 
   /**
    * products/createVariant
-   * @summary initializes empty variant template (all others are clones)
-   * should only be seen when all variants have been deleted from a product.
-   * @param {String} productId - the productId where we create variant
-   * @param {Object} newVariant - variant object
+   * @summary initializes empty variant template
+   * @param {String} parentId - the product _id or top level variant _id where
+   * we create variant
+   * @param {Object} [newVariant] - variant object
    * @return {String} new variantId
    */
-  "products/createVariant": function (productId, newVariant) {
-    check(productId, String);
+  "products/createVariant": function (parentId, newVariant) {
+    check(parentId, String);
     check(newVariant, Match.OneOf(Object, void 0));
-    let createVariant = newVariant || {};
     // must have createProduct permissions
     if (!ReactionCore.hasPermission("createProduct")) {
       throw new Meteor.Error(403, "Access Denied");
     }
     this.unblock();
-    // random id for new variant
-    let newVariantId = Random.id();
-    // if we have a newVariant object we'll use it.
-    if (newVariant) {
-      createVariant._id = newVariantId;
-      check(createVariant, ReactionCore.Schemas.ProductVariant);
-    } else {
-      createVariant = {
-        _id: newVariantId,
+
+    const newVariantId = Random.id();
+    const parent = Products.findOne(parentId);
+    const { ancestors } = parent;
+    Array.isArray(ancestors) && ancestors.push(parentId);
+    const assembledVariant = Object.assign(newVariant || {}, {
+      _id: newVariantId,
+      ancestors: ancestors
+    });
+
+    if (!newVariant) {
+      Object.assign(assembledVariant, {
         title: "",
         price: 0.00,
         type: "variant"
-      };
+      });
     }
+    check(assembledVariant, ReactionCore.Schemas.ProductVariant);
 
-    Products.update({
-      _id: productId
-    }, {
-      $addToSet: {
-        variants: createVariant
+    Products.insert(assembledVariant, (error, result) => {
+      if (result) {
+        ReactionCore.Log.info(
+          `products/createVariant: created variant: ${
+            newVariantId} for ${parentId}`
+        );
       }
-    }, {
-      validate: false
     });
+
     return newVariantId;
   },
 
@@ -213,6 +184,7 @@ Meteor.methods({
    * @summary update whole variants array
    * @param {Array} variants - array of variants to update
    * @return {String} returns update result
+   * @todo remove this method
    */
   "products/updateVariants": function (variants) {
     check(variants, [Object]);
