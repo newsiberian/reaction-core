@@ -164,8 +164,8 @@
         "resendShipmentNotification": "Resend Shipment Notification"
       },
       "cartCheckout": {
-        "surprise": "Woah!",
-        "emptyCheckoutCart": "looks like your cart is empty!"
+        "surprise": "Ого!",
+        "emptyCheckoutCart": "похоже, ваша корзина пуста!"
       },
       "cartCompleted": {
         "thankYou": "Благодарим!",
